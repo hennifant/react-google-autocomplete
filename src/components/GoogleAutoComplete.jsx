@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 
 const GoogleAutoComplete = () => {
   const [text, setText] = useState("");
+  const [coincidences, setCoincidences] = useState([]);
 
   const getMatches = async () => {
     return new Promise((resolve, reject) => {
@@ -29,6 +30,7 @@ const GoogleAutoComplete = () => {
 
   const doQuery = async () => {
     const results = JSON.parse(JSON.stringify(await getMatches()));
+    setCoincidences(results.map((result) => result.description));
     console.log(
       "🚀 ~ file: GoogleAutoComplete.jsx ~ line 35 ~ useEffect ~ results",
       results
@@ -52,6 +54,13 @@ const GoogleAutoComplete = () => {
         }}
         placeholder="type some text to search in google maps"
       />
+      {coincidences.length > 0 && (
+        <ul id="coincidences_list">
+          {coincidences.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };
