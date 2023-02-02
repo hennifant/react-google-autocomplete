@@ -1,4 +1,3 @@
-import { resolve } from "node:path/win32";
 import { useState, useEffect } from "react";
 
 const GoogleAutoComplete = () => {
@@ -7,10 +6,10 @@ const GoogleAutoComplete = () => {
   const getMatches = async () => {
     return new Promise((resolve, reject) => {
       if (!text) {
-        return rejects(new Error("Need valid text input"));
+        return reject(new Error("Need valid text input"));
       }
       if (typeof window === "undefined") {
-        return rejects(new Error("Need valid window object"));
+        return reject(new Error("Need valid window object"));
       }
       try {
         console.log(window.google);
@@ -23,7 +22,7 @@ const GoogleAutoComplete = () => {
           resolve
         );
       } catch (e) {
-        rejects(e);
+        reject(e);
       }
     });
   };
@@ -35,6 +34,12 @@ const GoogleAutoComplete = () => {
       results
     );
   };
+
+  useEffect(() => {
+    if (text) {
+      doQuery();
+    }
+  }, [text]);
 
   return (
     <div className="w-full flex flex-col">
