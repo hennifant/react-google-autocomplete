@@ -46,7 +46,7 @@ const GoogleAutoComplete = () => {
   return (
     <div className="w-full flex flex-col">
       <input
-        className="h-12 border-gray-300 border-[1px] px-4 outline-none mt-4"
+        className="h-12 border-gray-300 border-[1px] px-4 outline-none mt-4 w-full"
         type="text"
         value={text}
         onChange={(e) => {
@@ -55,9 +55,17 @@ const GoogleAutoComplete = () => {
         placeholder="type some text to search in google maps"
       />
       {coincidences.length > 0 && (
-        <ul id="coincidences_list">
+        <ul
+          id="coincidences_list"
+          className="bg-white border-[1px] rounded-lg shadow-lg p-4 absolute max-h-[200px] overflow-y-auto"
+        >
           {coincidences.map((item) => (
-            <li key={item}>{item}</li>
+            <li
+              key={item}
+              className="min-h-10 w-full border-b-[1px] border-solid border-l-gray-300 py-2"
+            >
+              🖲 {item}
+            </li>
           ))}
         </ul>
       )}
